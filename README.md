@@ -37,36 +37,6 @@ ShadowAgentMap continuously scans your GCP project and produces a live, visual t
 ## Architecture
 <img width="1328" height="786" alt="Screenshot 2026-03-22 at 3 55 12 PM" src="https://github.com/user-attachments/assets/07ce7a0b-7c55-4825-ac8c-38d4db8e1bb6" />
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    SHADOWAGENTMAP SYSTEM                        │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  Browser (React)                                                │
-│      │                                                          │
-│      ├── POST /api/scan ──────────────────────────────────┐     │
-│      │                                                    ▼     │
-│      │                                           FastAPI Backend │
-│      │                                                    │     │
-│      │                                    ┌───────────────┤     │
-│      │                                    ▼               ▼     │
-│      │                           ADK DiscoveryAgent    ADK      │
-│      │                           scan_and_register()  RiskAgent │
-│      │                                    │               │     │
-│      │                           Cloud Run API      BigQuery    │
-│      │                           Vertex AI API      agent_registry
-│      │                           IAM Policy Check              │
-│      │                                                          │
-│      ├── GET /api/agents ──────── BigQuery ◀── scored agents    │
-│      │                                    │                     │
-│      │                           React Flow Graph               │
-│      │                           (threat map)                   │
-│      │                                                          │
-│      └── WS /ws/monitor ──────── BehaviorMonitor               │
-│                                  Gemini 2.5 Flash Lite          │
-│                                  stream tokens → frontend       │
-└─────────────────────────────────────────────────────────────────┘
-```
 
 ### ADK Agent Pipeline
 
